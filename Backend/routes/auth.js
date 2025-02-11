@@ -6,7 +6,7 @@ const router = express.Router();
 const auth=require('../middleware/auth')
 require('../confing/passport');
 
-const {createUser,loginUser,verifyOtp,updateUser}=require('../controllers/auth')
+const {createUser,loginUser,updateUser,forgotPassword,resetPassword}=require('../controllers/auth')
 
 router.get('/google',  passport.authenticate('google', {  scope: ['profile', 'email'],prompt: 'select_account'  }));
 
@@ -43,7 +43,8 @@ router.get('/logout', (req, res) => {
 
 router.post('/register',createUser);
 router.post('/login',loginUser);
-router.post('/verify',verifyOtp);
+router.post('/forgot-password',forgotPassword);
+router.post('/reset-password',resetPassword);
 router.put('/update',auth(['job_seeker', 'employer']),updateUser);
 
 module.exports = router;
